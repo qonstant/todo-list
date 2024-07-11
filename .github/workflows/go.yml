@@ -37,19 +37,5 @@ jobs:
         with:
           go-version: ^1.22
 
-      - name: Install Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install docker.io -y
-
-      - name: Build Docker image
-        run: docker build -t todo-list .
-
-      - name: Run migrations
-        run: make migrateup
-
-      - name: Test
+      - name: Test CRUD
         run: make test
-
-      - name: Deploy to Docker Compose
-        run: docker compose up -d
