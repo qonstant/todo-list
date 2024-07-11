@@ -127,80 +127,39 @@ make restart
 
 ## API Endpoints
 
-### Proxy Request
-
-- URL: /proxy
+### Create a New Task
+- URL: http://localhost:8080/api/todo-list/tasks
 - Method: POST
 - Request Body:
 ```json
 {
-    "method": "GET",
-    "url": "http://example.com",
-    "headers": {
-        "Content-Type": "application/json"
-    }
+  "title": "Buy a book",
+  "active_at": "2023-08-04"
 }
 ```
 
-For instance:
+### Update an Existing Task
+- URL: http://localhost:8080/api/todo-list/tasks/{ID}
+- Method: PUT
+- Request Body:
 ```json
 {
-    "method": "GET",
-    "url": "http://jsonplaceholder.typicode.com/posts/1",
-    "headers": {
-        "Content-Type": "application/json"
-    }
-}
-```
-- Response:
-```json
-{
-    "id": "1627563890765102000",
-    "status": 200,
-    "headers": {
-        "Content-Type": "application/json"
-    },
-    "length": 1270
+  "title": "Buy a book - High Performance Applications",
+  "activeAt": "2023-08-05"
 }
 ```
 
-From the example above:
-```json
-{
-    "id": "d7f4fb3d-6def-4378-857e-91711eb018c6",
-    "status": 200,
-    "headers": {
-        "Access-Control-Allow-Credentials": "true",
-        "Alt-Svc": "h3=\":443\"; ma=86400",
-        "Cache-Control": "max-age=43200",
-        "Cf-Cache-Status": "REVALIDATED",
-        "Cf-Ray": "89db0c3a8d6d5d50-FRA",
-        "Connection": "keep-alive",
-        "Content-Type": "application/json; charset=utf-8",
-        "Date": "Thu, 04 Jul 2024 00:37:37 GMT",
-        "Etag": "W/\"124-yiKdLzqO5gfBrJFrcdJ8Yq0LGnU\"",
-        "Expires": "-1",
-        "Nel": "{\"report_to\":\"heroku-nel\",\"max_age\":3600,\"success_fraction\":0.005,\"failure_fraction\":0.05,\"response_headers\":[\"Via\"]}",
-        "Pragma": "no-cache",
-        "Report-To": "{\"group\":\"heroku-nel\",\"max_age\":3600,\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?ts=1719290587&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&s=eAlPGj2psKwqFTi3aRIeAycEDJsdhwHLI%2F0cXgblPNM%3D\"}]}",
-        "Reporting-Endpoints": "heroku-nel=https://nel.heroku.com/reports?ts=1719290587&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&s=eAlPGj2psKwqFTi3aRIeAycEDJsdhwHLI%2F0cXgblPNM%3D",
-        "Server": "cloudflare",
-        "Vary": "Origin, Accept-Encoding",
-        "Via": "1.1 vegur",
-        "X-Content-Type-Options": "nosniff",
-        "X-Powered-By": "Express",
-        "X-Ratelimit-Limit": "1000",
-        "X-Ratelimit-Remaining": "999",
-        "X-Ratelimit-Reset": "1719290646"
-    },
-    "length": 292,
-    "body": "{\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\",\n  \"body\": \"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\"\n}"
-}
-```
+### Delete a Task
+- URL: http://localhost:8080/api/todo-list/tasks/{ID}
+- Method: DELETE
 
-### Swagger Documentation
+### Mark a Task as Done 
+- URL: http://localhost:8080/api/todo-list/tasks/{ID}/done
+- Method: PUT
 
-- URL: /swagger/
+### List Tasks by Status 
+- URL: /api/todo-list/tasks?status=active or /api/todo-list/tasks?status=done
+- Method: GET
 
 - Link: https://go-proxy-1fo6.onrender.com/swagger/index.html
 
@@ -235,9 +194,9 @@ swag init
 ## Project Structure
 
 - main.go: The main server implementation.
-- main_test.go: Unit tests for the proxy handler.
 - Makefile: Makefile for building, running, testing, and Docker tasks.
 - Dockerfile: Dockerfile for containerizing the application.
+- internal/handlers/http: Contains the HTTP handlers for the API endpoints.
 
 ## Contributing
 

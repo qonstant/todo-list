@@ -24,6 +24,7 @@ up:
 
 down:
 	docker compose down
+	docker rmi todo-list
 
 restart: down up
 
