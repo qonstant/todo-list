@@ -21,7 +21,7 @@ func RegisterTaskRoutes(router *chi.Mux) {
 	router.Put("/tasks/{id}", UpdateTask)
 	router.Delete("/tasks/{id}", DeleteTask)
 	router.Put("/tasks/{id}/done", MarkTaskDone)
-	router.Get("/todo-list/tasks", ListTasks)
+	router.Get("/tasks", ListTasks)
 }
 
 // CreateTask creates a new task
