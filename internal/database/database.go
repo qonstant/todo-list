@@ -48,7 +48,7 @@ func InitDB() {
 
 func runMigrations() error {
 	// Directory where migration files are stored
-	dir := "./migrations"
+	dir := "./db/migrations"
 
 	// Check if the migrations directory exists
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
