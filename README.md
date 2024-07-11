@@ -7,7 +7,7 @@ Creating a RESTful API for a Todo List microservice. The service is deployed on 
 ## Features
 - **Database was created by using dbdiagram.**
 
-https://raw.githubusercontent.com/qonstant/todo-list/main/DBdiagram.png
+![alt text](https://raw.githubusercontent.com/qonstant/todo-list/main/DBdiagram.png)
 
 - **CRUD operations for managing tasks.**
   - CRUD was created using SQLC. For regeneration of CRUD:
