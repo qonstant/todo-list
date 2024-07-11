@@ -1,4 +1,4 @@
-name: Go CI/CD
+name: CI/CD Pipeline
 
 on:
   push:
@@ -9,9 +9,8 @@ on:
       - main
 
 jobs:
-
-  build-and-test:
-    name: Build, Migrate, and Test
+  build:
+    name: Build and Test
     runs-on: ubuntu-latest
 
     services:
@@ -22,7 +21,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: todo-db
         ports:
-          - 5433:5432
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -30,36 +29,27 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.22
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.22'
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker.io -y
 
-    - name: Install golang-migrate
-      run: |
-        curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
-        sudo mv migrate.linux-amd64 /usr/bin/migrate
-        which migrate
+      - name: Build Docker image
+        run: docker build -t todo-list .
 
-    - name: Set up environment variables
-      run: |
-        cp app.env .env
+      - name: Run migrations
+        run: make migrateup
 
-    - name: Run Docker Compose
-      run: make up
+      - name: Test
+        run: make test
 
-    - name: Run database migrations
-      run: make migrateup
-
-    - name: Build
-      run: go build -v ./...
-
-    - name: Test
-      run: make test
-
-    - name: Stop Docker Compose
-      run: make down
+      - name: Deploy to Docker Compose
+        run: docker compose up -d
