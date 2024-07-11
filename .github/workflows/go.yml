@@ -29,13 +29,15 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ^1.22
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.22.4'
 
-      - name: Test CRUD
-        run: make test
+    - name: Build
+      run: go build -v ./...
+
+    - name: Test
+      run: go test -v ./...
