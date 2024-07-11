@@ -36,6 +36,9 @@ test-html:
 	@cd db/sqlc && go test -coverprofile=cover.txt ./...
 	@cd db/sqlc && go tool cover -html=cover.txt
 
+test:
+	@cd db/sqlc && go test
+
 server:
 	go run main.go
 

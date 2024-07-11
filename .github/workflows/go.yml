@@ -1,28 +1,67 @@
-# This workflow will build a golang project
+# This workflow will build, migrate, and test a Golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Go
+name: Go CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
 
-  build:
+  build-and-test:
+    name: Build, Migrate, and Test
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: todo-user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: todo-db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-    - uses: actions/checkout@v4
+
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Set up Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v2
       with:
-        go-version: '1.20'
+        go-version: '1.22'
+
+    - name: Install golang-migrate
+      run: |
+        curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
+        sudo mv migrate.linux-amd64 /usr/bin/migrate
+        which migrate
+
+    - name: Start PostgreSQL service
+      run: docker run --name todo-db -p 5432:5432 -e POSTGRES_USER=todo-user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=todo-db -d postgres:latest
+
+    - name: Create database
+      run: docker exec todo-db createdb --username=todo-user --owner=todo-user todo-db
+
+    - name: Run database migrations
+      run: migrate -path db/migrations -database "postgresql://todo-user:password@localhost:5432/todo-db?sslmode=disable" -verbose up
 
     - name: Build
       run: go build -v ./...
 
     - name: Test
-      run: go test -v ./...
+      run: make test
+
+    - name: Stop PostgreSQL service
+      run: docker stop todo-db
