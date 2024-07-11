@@ -17,11 +17,11 @@ import (
 
 // RegisterTaskRoutes sets up the routes for task handlers
 func RegisterTaskRoutes(router *chi.Mux) {
-	router.Post("/api/todo-list/tasks", CreateTask)
-	router.Put("/api/todo-list/tasks/{id}", UpdateTask)
-	router.Delete("/api/todo-list/tasks/{id}", DeleteTask)
-	router.Put("/api/todo-list/tasks/{id}/done", MarkTaskDone)
-	router.Get("/api/todo-list/tasks", ListTasks)
+	router.Post("/tasks", CreateTask)
+	router.Put("/tasks/{id}", UpdateTask)
+	router.Delete("/tasks/{id}", DeleteTask)
+	router.Put("/tasks/{id}/done", MarkTaskDone)
+	router.Get("/todo-list/tasks", ListTasks)
 }
 
 // CreateTask creates a new task

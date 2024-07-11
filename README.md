@@ -65,8 +65,8 @@ go get github.com/kyleconroy/sqlc/cmd/sqlc
 ### Clone the Repository
 
 ```bash
-https://github.com/qonstant/go-proxy.git
-cd go-proxy
+https://github.com/qonstant/todo-list.git
+cd todo-list
 ```
 ## Build and Run Locally
 
@@ -83,7 +83,7 @@ make run
 ```
 After running make run, the server will start and be accessible at http://localhost:8080.
 
-Link to the deployment: https://go-proxy-1fo6.onrender.com/proxy
+Link to the deployment: https://todo-list-hl.onrender.com
 
 ### Generate Swagger Documentation
 
@@ -144,7 +144,7 @@ make restart
 - URL: /api/todo-list/tasks?status=active or /api/todo-list/tasks?status=done
 - Method: GET
 
-- Link: https://go-proxy-1fo6.onrender.com/swagger/index.html
+- Link: https://todo-list-hl.onrender.com/swagger/index.html
 
 # Swagger: HTTP tutorial for beginners
 
