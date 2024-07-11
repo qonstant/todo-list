@@ -34,7 +34,7 @@ func RegisterTaskRoutes(router *chi.Mux) {
 // @Success 201 {object} db.Task
 // @Failure 400 {string} string "Invalid input"
 // @Failure 500 {string} string "Error creating task"
-// @Router /api/todo-list/tasks [post]
+// @Router /tasks [post]
 func CreateTask(w http.ResponseWriter, r *http.Request) {
 	var input createTaskInput
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
@@ -85,7 +85,7 @@ func CreateTask(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} db.Task
 // @Failure 400 {string} string "Invalid input"
 // @Failure 500 {string} string "Error updating task"
-// @Router /api/todo-list/tasks/{id} [put]
+// @Router /tasks/{id} [put]
 func UpdateTask(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(chi.URLParam(r, "id"), 10, 64)
 	if err != nil {
@@ -142,7 +142,7 @@ func UpdateTask(w http.ResponseWriter, r *http.Request) {
 // @Success 204
 // @Failure 400 {string} string "Invalid task ID"
 // @Failure 500 {string} string "Error deleting task"
-// @Router /api/todo-list/tasks/{id} [delete]
+// @Router /tasks/{id} [delete]
 func DeleteTask(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(chi.URLParam(r, "id"), 10, 64)
 	if err != nil {
@@ -167,7 +167,7 @@ func DeleteTask(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} db.Task
 // @Failure 400 {string} string "Invalid task ID"
 // @Failure 500 {string} string "Error marking task as done"
-// @Router /api/todo-list/tasks/{id}/done [put]
+// @Router /tasks/{id}/done [put]
 func MarkTaskDone(w http.ResponseWriter, r *http.Request) {
     id, err := strconv.ParseInt(chi.URLParam(r, "id"), 10, 64)
     if err != nil {
@@ -211,7 +211,7 @@ func MarkTaskDone(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Success 200 {array} db.Task
 // @Failure 500 {string} string "Error retrieving tasks"
-// @Router /api/todo-list/tasks [get]
+// @Router /tasks [get]
 func ListTasks(w http.ResponseWriter, r *http.Request) {
 	tasks, err := db.New(database.DB).ListTasks(context.Background())
 	if err != nil {

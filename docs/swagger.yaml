@@ -35,7 +35,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /api/todo-list/tasks:
+  /tasks:
     get:
       description: List all tasks
       produces:
@@ -83,7 +83,7 @@ paths:
       summary: Create a new task
       tags:
       - Tasks
-  /api/todo-list/tasks/{id}:
+  /tasks/{id}:
     delete:
       description: Delete a task
       parameters:
@@ -140,7 +140,7 @@ paths:
       summary: Update an existing task
       tags:
       - Tasks
-  /api/todo-list/tasks/{id}/done:
+  /tasks/{id}/done:
     put:
       description: Mark a task as done
       parameters:

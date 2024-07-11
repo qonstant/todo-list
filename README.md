@@ -111,7 +111,7 @@ make restart
 ## API Endpoints
 
 ### Create a New Task
-- URL: http://localhost:8080/api/todo-list/tasks
+- URL: http://localhost:8080/tasks
 - Method: POST
 - Request Body:
 ```json
@@ -122,7 +122,7 @@ make restart
 ```
 
 ### Update an Existing Task
-- URL: http://localhost:8080/api/todo-list/tasks/{ID}
+- URL: http://localhost:8080/tasks/{ID}
 - Method: PUT
 - Request Body:
 ```json
@@ -133,11 +133,11 @@ make restart
 ```
 
 ### Delete a Task
-- URL: http://localhost:8080/api/todo-list/tasks/{ID}
+- URL: http://localhost:8080/tasks/{ID}
 - Method: DELETE
 
 ### Mark a Task as Done 
-- URL: http://localhost:8080/api/todo-list/tasks/{ID}/done
+- URL: http://localhost:8080/tasks/{ID}/done
 - Method: PUT
 
 ### List Tasks by Status 

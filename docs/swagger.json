@@ -4,7 +4,7 @@
         "contact": {}
     },
     "paths": {
-        "/api/todo-list/tasks": {
+        "/tasks": {
             "get": {
                 "description": "List all tasks",
                 "produces": [
@@ -77,7 +77,7 @@
                 }
             }
         },
-        "/api/todo-list/tasks/{id}": {
+        "/tasks/{id}": {
             "put": {
                 "description": "Update an existing task",
                 "consumes": [
@@ -163,7 +163,7 @@
                 }
             }
         },
-        "/api/todo-list/tasks/{id}/done": {
+        "/tasks/{id}/done": {
             "put": {
                 "description": "Mark a task as done",
                 "tags": [
