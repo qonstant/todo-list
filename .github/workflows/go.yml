@@ -48,14 +48,11 @@ jobs:
         sudo mv migrate.linux-amd64 /usr/bin/migrate
         which migrate
 
-    - name: Start PostgreSQL service
-      run: docker run --name todo-db -p 5432:5432 -e POSTGRES_USER=todo-user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=todo-db -d postgres:latest
-
-    - name: Create database
-      run: docker exec todo-db createdb --username=todo-user --owner=todo-user todo-db
+    - name: Run
+      run: make up
 
     - name: Run database migrations
-      run: migrate -path db/migrations -database "postgresql://todo-user:password@localhost:5432/todo-db?sslmode=disable" -verbose up
+      run: make migrateup
 
     - name: Build
       run: go build -v ./...
