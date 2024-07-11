@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"os"
 
@@ -21,6 +22,9 @@ func InitDB() {
 	if err != nil {
 		log.Fatalf("Error loading config: %v", err)
 	}
+
+	// Print DB_SOURCE for debugging
+	fmt.Println("DB_SOURCE:", config.DBSource)
 
 	// Open a connection to the database using DB_SOURCE directly
 	DB, err = sql.Open("postgres", config.DBSource)
