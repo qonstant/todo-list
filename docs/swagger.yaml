@@ -34,6 +34,9 @@ definitions:
     type: object
 info:
   contact: {}
+  description: This is simple Todo List
+  title: Todo List
+  version: "1.0"
 paths:
   /tasks:
     get:

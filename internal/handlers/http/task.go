@@ -25,6 +25,11 @@ func RegisterTaskRoutes(router *chi.Mux) {
 }
 
 // CreateTask creates a new task
+
+// @title Todo List
+// @version 1.0
+// @description This is simple Todo List
+
 // @Summary Create a new task
 // @Description Create a new task
 // @Tags Tasks

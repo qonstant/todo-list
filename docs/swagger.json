@@ -1,7 +1,10 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "This is simple Todo List",
+        "title": "Todo List",
+        "contact": {},
+        "version": "1.0"
     },
     "paths": {
         "/tasks": {
