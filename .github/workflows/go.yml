@@ -25,7 +25,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: todo-db
         ports:
-          - 5432:5432
+          - 0.0.0.0:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
