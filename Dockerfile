@@ -35,4 +35,4 @@ COPY --from=builder /build/app.env ./app.env
 EXPOSE 8080
 
 # Print the contents of the /app directory for debugging purposes
-CMD ["sh", "-c", "echo Starting Todo List Application... && ./todo-list"]
+CMD ["./todo-list"]

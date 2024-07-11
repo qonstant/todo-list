@@ -1,20 +1,3 @@
-make migrateup and migratedown for migration
-
-sqlc for Database
-brew install sqlc
-or
-go get github.com/kyleconroy/sqlc/cmd/sqlc
-
-with "make test-html" u can see coverage of tests
-
-for swagger: swag init -g internal/handlers/http/task.go
-
-For running app, for docker compose up -d
-make up
-
-and make down
-for docker compose down
-
 # Todo List App
 
 ## Goal
@@ -24,7 +7,7 @@ Creating a RESTful API for a Todo List microservice. The service is deployed on 
 ## Features
 - **Database was created by using dbdiagram.**
 
-  *Photo*
+https://raw.githubusercontent.com/qonstant/todo-list/main/DBdiagram.png
 
 - **CRUD operations for managing tasks.**
   - CRUD was created using SQLC. For regeneration of CRUD:
