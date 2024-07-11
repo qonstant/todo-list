@@ -25,6 +25,8 @@ up:
 down:
 	docker compose down
 
+restart: down up
+
 sqlc:
 	sqlc generate
 
