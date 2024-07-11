@@ -4,7 +4,7 @@ WHERE id = $1 LIMIT 1;
 
 -- name: ListTasks :many
 SELECT * FROM tasks
-ORDER BY title;
+ORDER BY active_at;
 
 -- name: CreateTask :one
 INSERT INTO tasks (

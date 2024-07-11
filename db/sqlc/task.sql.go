@@ -69,7 +69,7 @@ func (q *Queries) GetTask(ctx context.Context, id int64) (Task, error) {
 
 const listTasks = `-- name: ListTasks :many
 SELECT id, title, active_at, done, created_at, updated_at FROM tasks
-ORDER BY title
+ORDER BY active_at
 `
 
 func (q *Queries) ListTasks(ctx context.Context) ([]Task, error) {

@@ -2,17 +2,15 @@ package validators
 
 import (
 	"errors"
-	"todo-list/internal/models"
+	"todo-list/db/sqlc"
 )
 
-func ValidateTask(task models.Task) error {
-	if len(task.Title) == 0 || len(task.Title) > 200 {
-		return errors.New("title is required and must not exceed 200 characters")
+func ValidateTask(task db.Task) error {
+	if task.Title == "" {
+		return errors.New("title is required")
 	}
-
 	if task.ActiveAt.IsZero() {
-		return errors.New("ActiveAt date is required and must be valid")
+		return errors.New("activeAt is required and must be a valid date")
 	}
-
 	return nil
 }
