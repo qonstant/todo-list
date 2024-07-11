@@ -69,7 +69,7 @@ func (q *Queries) GetTask(ctx context.Context, id int64) (Task, error) {
 
 const listTasks = `-- name: ListTasks :many
 SELECT id, title, active_at, done, created_at, updated_at FROM tasks
-ORDER BY active_at
+ORDER BY active_at ASC
 `
 
 func (q *Queries) ListTasks(ctx context.Context) ([]Task, error) {
@@ -107,6 +107,7 @@ UPDATE tasks
 SET 
     title = $2,
     active_at = $3,
+    done = $4,
     updated_at = NOW()
 WHERE id = $1
 RETURNING id, title, active_at, done, created_at, updated_at
@@ -116,10 +117,16 @@ type UpdateTaskParams struct {
 	ID       int64     `json:"id"`
 	Title    string    `json:"title"`
 	ActiveAt time.Time `json:"active_at"`
+	Done     bool      `json:"done"`
 }
 
 func (q *Queries) UpdateTask(ctx context.Context, arg UpdateTaskParams) (Task, error) {
-	row := q.db.QueryRowContext(ctx, updateTask, arg.ID, arg.Title, arg.ActiveAt)
+	row := q.db.QueryRowContext(ctx, updateTask,
+		arg.ID,
+		arg.Title,
+		arg.ActiveAt,
+		arg.Done,
+	)
 	var i Task
 	err := row.Scan(
 		&i.ID,

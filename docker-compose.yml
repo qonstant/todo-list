@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.4'
 
 services:
   db:
@@ -14,12 +14,13 @@ services:
       - "5432:5432"
 
   app:
+    image: todo-list
     build:
       context: .
       dockerfile: Dockerfile
     container_name: todo-app
     environment:
-      DATABASE_URL: postgres://todo-user:password@db:5432/todo-db?sslmode=disable
+      DB_SOURCE: postgres://todo-user:password@db:5432/todo-db?sslmode=disable
       PORT: 8080
     ports:
       - "8080:8080"

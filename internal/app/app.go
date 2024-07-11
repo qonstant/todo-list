@@ -7,15 +7,19 @@ import (
 
 	"todo-list/internal/database"
 	"todo-list/internal/handlers"
-
-	"github.com/go-chi/chi/v5"
 )
 
 func Run() {
 	database.InitDB()
 
-	router := chi.NewRouter()
-	handlers.RegisterTaskRoutes(router)
+	deps := handler.Dependencies{
+		DB: database.DB,
+	}
+
+	h, err := handler.New(deps, handler.WithHTTPHandler())
+	if err != nil {
+		log.Fatalf("Error initializing handler: %v", err)
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -23,7 +27,7 @@ func Run() {
 	}
 
 	log.Printf("Starting server on port %s...", port)
-	if err := http.ListenAndServe(":"+port, router); err != nil {
+	if err := http.ListenAndServe(":"+port, h.HTTP); err != nil {
 		log.Fatalf("Error starting server: %v", err)
 	}
 }

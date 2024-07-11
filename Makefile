@@ -19,11 +19,14 @@ migratedown:
 # migratedown1:
 # 	migrate -path db/migrations -database "postgresql://todo-user:password@localhost:5432/todo-db?sslmode=disable" -verbose down 1
 
+up:
+	docker compose up -d
+
+down:
+	docker compose down
+
 sqlc:
 	sqlc generate
-
-tests:
-	cd api && go test -v -cover ./...
 
 test-html:
 	@echo "Creation of UI for tests..."

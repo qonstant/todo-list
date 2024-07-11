@@ -1,22 +1,6 @@
 mode: set
 todo-list/db/sqlc/db.go:19.28,21.2 1 1
 todo-list/db/sqlc/db.go:27.47,31.2 1 0
-todo-list/db/sqlc/store.go:18.33,23.2 1 0
-todo-list/db/sqlc/store.go:25.83,27.16 2 0
-todo-list/db/sqlc/store.go:27.16,29.3 1 0
-todo-list/db/sqlc/store.go:30.2,30.15 1 0
-todo-list/db/sqlc/store.go:30.15,31.31 1 0
-todo-list/db/sqlc/store.go:31.31,33.20 2 0
-todo-list/db/sqlc/store.go:33.20,35.5 1 0
-todo-list/db/sqlc/store.go:36.4,36.12 1 0
-todo-list/db/sqlc/store.go:37.9,37.24 1 0
-todo-list/db/sqlc/store.go:37.24,39.20 2 0
-todo-list/db/sqlc/store.go:39.20,41.5 1 0
-todo-list/db/sqlc/store.go:42.9,44.18 2 0
-todo-list/db/sqlc/store.go:44.18,46.5 1 0
-todo-list/db/sqlc/store.go:50.2,52.16 3 0
-todo-list/db/sqlc/store.go:52.16,54.3 1 0
-todo-list/db/sqlc/store.go:55.2,55.12 1 0
 todo-list/db/sqlc/task.sql.go:27.87,39.2 4 1
 todo-list/db/sqlc/task.sql.go:46.67,49.2 2 1
 todo-list/db/sqlc/task.sql.go:56.72,68.2 4 1
@@ -31,4 +15,4 @@ todo-list/db/sqlc/task.sql.go:96.37,98.3 1 0
 todo-list/db/sqlc/task.sql.go:99.2,99.35 1 1
 todo-list/db/sqlc/task.sql.go:99.35,101.3 1 0
 todo-list/db/sqlc/task.sql.go:102.2,102.19 1 1
-todo-list/db/sqlc/task.sql.go:121.87,133.2 4 1
+todo-list/db/sqlc/task.sql.go:123.87,140.2 4 1
