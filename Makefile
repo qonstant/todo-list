@@ -49,4 +49,4 @@ coverfile:
 swagger:
 	swag init -g internal/handlers/http/task.go
 
-.PHONY: postgres createdb dropdb migrateup migrateup migratedown migratedown1 sqlc tests server mock storetest coverfile
+.PHONY: postgres createdb dropdb migrateup migrateup1 migratedown migratedown1 sqlc tests server mock storetest coverfile

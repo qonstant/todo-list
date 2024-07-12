@@ -13,6 +13,18 @@ services:
     ports:
       - "5432:5432"
 
+  migrate:
+    image: migrate/migrate:v4.15.1
+    depends_on:
+      - db
+    volumes:
+      - ./db/migrations:/migrations
+    entrypoint: [
+      "sh", "-c",
+      "migrate -path /migrations -database 'postgres://todo-user:password@db:5432/todo-db?sslmode=disable' up"
+    ]
+    restart: "on-failure"
+
   app:
     image: todo-list
     build:
@@ -26,6 +38,7 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - migrate
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost:8080/tasks"]
     #   interval: 30s

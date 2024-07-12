@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"todo-list/util"
+
 	_ "github.com/lib/pq"
 
 	"github.com/pressly/goose/v3"
@@ -47,21 +49,34 @@ func InitDB() {
 }
 
 func runMigrations() error {
-	// Directory where migration files are stored
-	dir := "./db/migrations"
+	// Get the absolute path for the migrations directory
+	dir, err := filepath.Abs("./db/migrations")
+	if err != nil {
+		return fmt.Errorf("could not get absolute path for migrations: %w", err)
+	}
 
 	// Check if the migrations directory exists
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		log.Printf("Migrations directory '%s' does not exist, skipping migrations", dir)
 		return nil // No migrations to run
 	}
 
-	// Set the base file system for migrations
-	goose.SetBaseFS(os.DirFS(dir))
-
-	// Perform database migrations
-	if err := goose.Up(DB, ""); err != nil {
-		return err
+	// Print the contents of the migrations directory
+	files, err := os.ReadDir(dir)
+	if err != nil {
+		return fmt.Errorf("could not read migrations directory: %w", err)
 	}
 
+	log.Println("Migration files:")
+	for _, file := range files {
+		log.Println(file.Name())
+	}
+
+	// Perform database migrations
+	if err := goose.Up(DB, dir); err != nil {
+		return fmt.Errorf("error running migrations: %w", err)
+	}
+
+	log.Println("Database migrations ran successfully!")
 	return nil
 }

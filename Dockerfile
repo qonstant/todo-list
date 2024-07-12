@@ -20,7 +20,7 @@ RUN ls -l /build
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o todo-list .
 
 # Create a new stage for the final application image (based on Alpine Linux)
-FROM alpine:3.18 as hoster
+FROM alpine:3.18
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -34,5 +34,5 @@ COPY --from=builder /build/app.env ./app.env
 # Expose port 8080 if your application needs it
 EXPOSE 8080
 
-# Print the contents of the /app directory for debugging purposes
+# Command to run your application
 CMD ["./todo-list"]
