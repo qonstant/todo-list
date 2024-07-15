@@ -85,6 +85,10 @@ After running make run, the server will start and be accessible at http://localh
 
 Link to the deployment: https://todo-list-hl.onrender.com
 
+### Health Check
+
+Health can by checked by [LINK](https://todo-list-hl.onrender.com/status)
+
 ### Generate Swagger Documentation
 
 ```bash
