@@ -29,7 +29,7 @@ func Run() {
 	}), health.WithChecks(
 		health.Config{
 			Name:      "postgres",
-			Timeout:   time.Second * 2,
+			Timeout:   time.Second * 10,
 			SkipOnErr: false,
 			Check: healthPg.New(healthPg.Config{
 				DSN: os.Getenv("DB_SOURCE"),
