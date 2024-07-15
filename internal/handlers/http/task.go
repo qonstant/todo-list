@@ -11,6 +11,7 @@ import (
 	"todo-list/db/sqlc"
 	"todo-list/internal/database"
 	"todo-list/internal/validators"
+	httpSwagger "github.com/swaggo/http-swagger"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -22,6 +23,9 @@ func RegisterTaskRoutes(router *chi.Mux) {
 	router.Delete("/tasks/{id}", DeleteTask)
 	router.Put("/tasks/{id}/done", MarkTaskDone)
 	router.Get("/tasks", ListTasks)
+
+	// Swagger endpoint
+	router.Get("/swagger/*", httpSwagger.WrapHandler)
 }
 
 // CreateTask creates a new task

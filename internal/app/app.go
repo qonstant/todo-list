@@ -20,7 +20,7 @@ func Run() {
 	router := chi.NewRouter()
 
 	// Register task routes
-	myHttp.RegisterTaskRoutes(router) // Correct usage
+	myHttp.RegisterTaskRoutes(router)
 
 	// Set up health checks
 	healthHandler, _ := health.New(health.WithComponent(health.Component{
