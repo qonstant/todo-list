@@ -2,8 +2,7 @@ package handler
 
 import (
 	"database/sql"
-	"todo-list/internal/handlers/http"
-
+	"todo-list/internal/handlers/http" // Check this import path
 	"github.com/go-chi/chi/v5"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
@@ -18,8 +17,7 @@ type Configuration func(h *Handler) error
 // Handler is an implementation of the Handler
 type Handler struct {
 	dependencies Dependencies
-
-	HTTP *chi.Mux
+	HTTP         *chi.Mux
 }
 
 // New takes a variable amount of Configuration functions and returns a new Handler
@@ -51,7 +49,7 @@ func WithHTTPHandler() Configuration {
 		h.HTTP.Get("/swagger/*", httpSwagger.WrapHandler)
 
 		// Register task routes
-		http.RegisterTaskRoutes(h.HTTP)
+		http.RegisterTaskRoutes(h.HTTP) // Correct usage
 
 		return
 	}
