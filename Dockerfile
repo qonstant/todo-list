@@ -31,6 +31,9 @@ COPY --from=builder /build/todo-list ./todo-list
 # Copy your configuration files
 COPY --from=builder /build/app.env ./app.env
 
+# Copy your migration files
+COPY --from=builder /build/db/migrations ./db/migrations
+
 # Expose port 8080 if your application needs it
 EXPOSE 8080
 

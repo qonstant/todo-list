@@ -2,16 +2,19 @@ package database
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"todo-list/util"
 
 	_ "github.com/lib/pq"
-
-	"github.com/pressly/goose/v3"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 var DB *sql.DB
@@ -41,14 +44,14 @@ func InitDB() {
 	}
 
 	// Run database migrations
-	if err := runMigrations(); err != nil {
+	if err := runMigrations(config.DBSource); err != nil {
 		log.Fatalf("Could not run database migrations: %v", err)
 	}
 
 	log.Println("Connected to the database successfully!")
 }
 
-func runMigrations() error {
+func runMigrations(dataSourceName string) error {
 	// Get the absolute path for the migrations directory
 	dir, err := filepath.Abs("./db/migrations")
 	if err != nil {
@@ -72,8 +75,17 @@ func runMigrations() error {
 		log.Println(file.Name())
 	}
 
-	// Perform database migrations
-	if err := goose.Up(DB, dir); err != nil {
+	// Perform database migrations using golang-migrate
+	if !strings.Contains(dataSourceName, "://") {
+		return errors.New("undefined data source name " + dataSourceName)
+	}
+
+	m, err := migrate.New(fmt.Sprintf("file://%s", dir), dataSourceName)
+	if err != nil {
+		return fmt.Errorf("error creating migration instance: %w", err)
+	}
+
+	if err = m.Up(); err != nil && err != migrate.ErrNoChange {
 		return fmt.Errorf("error running migrations: %w", err)
 	}
 
